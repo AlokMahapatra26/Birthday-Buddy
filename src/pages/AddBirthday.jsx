@@ -1,10 +1,12 @@
 import React from 'react'
 import { useState } from 'react';
+import {v4 as uuidv4} from 'uuid'
+import { databases } from '../appwrite/appwrite';
 
 
 function AddBirthday() {
 
-
+  //state
   const [fromData , setFormData] = useState({
     name : "",
     date : "",
@@ -12,12 +14,33 @@ function AddBirthday() {
 
   const {name , date} = fromData;
   
-
+  //onChnage function
   function onChange(e){
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id] : e.target.value,
     }));
+  }
+
+
+  //backend code 
+  //adding data to database
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const promise = databases.createDocument("64d3b9cf76d2074c8e08", "64d3b9f0b96832857134" , uuidv4() , {
+      name,
+      date
+    })
+
+    promise.then(
+      function(response){
+        console.log(response);
+        alert("Added");
+      },
+      function(error){
+        console.log(error);
+      }
+    )
   }
 
 
@@ -27,9 +50,9 @@ function AddBirthday() {
     <h1 className='text-3xl text-center font-bold p-6'>Add Birthdate</h1>
     <div className='flex flex-col lg:w-1/4 md:w-2/4 w-3/4 mx-auto item-center justify-center mt-4'>
     
-      <form>
+      <form onSubmit={handleSubmit}> 
         <div className='flex flex-col'>
-        <input type="email"
+        <input type="text"
          placeholder='Enter Name'
          id="name" 
          value={name} 
