@@ -28,9 +28,6 @@ function Login() {
       }
 
 
-      
-
-
       //backend
       const loginUser = async(e) => {
         e.preventDefault();
