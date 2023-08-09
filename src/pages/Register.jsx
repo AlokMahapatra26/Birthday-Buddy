@@ -1,10 +1,17 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { account } from '../appwrite/appwrite';
+import { useNavigate } from 'react-router-dom';
+import {v4 as uuidv4} from 'uuid'
 
 function Register() {
 
-    //form state
+
+  //useNavigate
+  const navigate = useNavigate();
+
+  //form state
   const [formData , setFormData] = useState({
     fullname : "",
     email : "",
@@ -23,7 +30,26 @@ function Register() {
   }
 
   //backend code
+
+  const signupUser = async (e) => {
+    e.preventDefault()
+
+    const promise = account.create(
+      uuidv4(),
+      email,
+      password,
+      fullname
+    );
+
+      promise.then(function(response){
+        console.log(response);
+        navigate('/');
+      }, function(error){
+        console.log(error);
+        alert("Something went wrong")
+      })
   
+  }
 
 
   
@@ -35,7 +61,7 @@ function Register() {
       <h1 className='text-3xl text-center font-bold p-6'>Register</h1>
       <div className='flex flex-col lg:w-1/4 md:w-2/4 w-3/4 mx-auto item-center justify-center mt-4'>
       
-        <form>
+        <form onSubmit={signupUser}>
           <div className='flex flex-col'>
           <input type="text"
            placeholder='Full Name'

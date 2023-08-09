@@ -1,10 +1,17 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { account } from '../appwrite/appwrite';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
+    //Navigator
+    const navigate =  useNavigate();
 
+
+
+    //state
     const [fromData , setFormData] = useState({
         email : "",
         password : "",
@@ -21,6 +28,21 @@ function Login() {
       }
 
 
+      
+
+
+      //backend
+      const loginUser = async(e) => {
+        e.preventDefault();
+          try{
+            await account.createEmailSession(email , password);
+            navigate('/home')
+          }catch(error){
+            console.log(error)
+            alert("something gone wrong!");
+          }
+        }
+
 
   return (
     <section className=''>
@@ -28,7 +50,7 @@ function Login() {
       <h1 className='text-3xl text-center font-bold p-6'>Login</h1>
       <div className='flex flex-col lg:w-1/4 md:w-2/4 w-3/4 mx-auto item-center justify-center mt-4'>
       
-        <form>
+        <form onSubmit={loginUser}>
           <div className='flex flex-col'>
           <input type="email"
            placeholder='Email'
