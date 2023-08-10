@@ -1,10 +1,15 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import {v4 as uuidv4} from 'uuid'
 import { databases } from '../appwrite/appwrite';
+import { account } from '../appwrite/appwrite';
 
 
 function AddBirthday() {
+
+   
+  
+   
 
   //state
   const [fromData , setFormData] = useState({
@@ -12,7 +17,26 @@ function AddBirthday() {
     date : "",
   });
 
+  const [uniqueEmail , setUniqueEmail] = useState("");
+
+    //getting current user email
+    useEffect(()=>{
+      const getData = account.get();
+      getData.then(
+        function(response){
+          setUniqueEmail(response.email);
+        },
+        function(error){
+          console.log(error)
+          alert("Something went wrong")
+        }
+      )
+    }, [])
+
   const {name , date} = fromData;
+ 
+ 
+
   
   //onChnage function
   function onChange(e){
@@ -23,13 +47,18 @@ function AddBirthday() {
   }
 
 
+
+
+
   //backend code 
   //adding data to database
   const handleSubmit = (e) => {
     e.preventDefault()
+    
     const promise = databases.createDocument("64d3b9cf76d2074c8e08", "64d3b9f0b96832857134" , uuidv4() , {
       name,
-      date
+      date,
+      uniqueEmail
     })
 
     promise.then(
@@ -41,8 +70,8 @@ function AddBirthday() {
         console.log(error);
       }
     )
-  }
-
+    }
+  
 
   return (
     <section className=''>
