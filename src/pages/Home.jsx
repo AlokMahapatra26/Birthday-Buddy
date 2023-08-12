@@ -3,6 +3,7 @@ import { account } from '../appwrite/appwrite';
 import { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { databases } from '../appwrite/appwrite';
+import Header from '../components/Header';
 
 function Home() {
 
@@ -51,7 +52,8 @@ function Home() {
 
   return (
     <>
-    <section className='px-4'>
+    <section className=''>
+    <Header/>
       <h2 className='text-center mt-8 mb-8 text-xl'>Hello {name ? name.name : "loading..."}</h2>
       <hr className='w-1/4 mx-auto'/>
      <section className='mt-8 flex flex-row justify-center flex-wrap'>
@@ -60,7 +62,7 @@ function Home() {
       (item) => {
         
 
-        if(name.email == item.uniqueEmail){
+        if(name?.email == item.uniqueEmail){
         const dateObject = new Date(item.date);
         const year = dateObject.getFullYear();
         const month = dateObject.getMonth() + 1; // Month is zero-based, so adding 1

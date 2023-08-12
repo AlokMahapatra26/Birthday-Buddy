@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState , useEffect} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
+
+
 function Header() {
 
   const navigate = useNavigate();
+
+  
+  
+
 
   return (
     <div className='bg-red-500 w-screen flex justify-between p-4 shadow-sm'>

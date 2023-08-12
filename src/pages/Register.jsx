@@ -38,7 +38,8 @@ function Register() {
       uuidv4(),
       email,
       password,
-      fullname
+      fullname,
+    
     );
 
       promise.then(function(response){
@@ -78,6 +79,7 @@ function Register() {
            className='border my-4 p-2  outline-none rounded-lg ' 
            
            />
+          
           <input type="password" 
            placeholder='Password'
            id="password" 

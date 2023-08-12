@@ -3,13 +3,9 @@ import { useState , useEffect } from 'react';
 import {v4 as uuidv4} from 'uuid'
 import { databases } from '../appwrite/appwrite';
 import { account } from '../appwrite/appwrite';
-
+import Header from '../components/Header';
 
 function AddBirthday() {
-
-   
-  
-   
 
   //state
   const [fromData , setFormData] = useState({
@@ -75,6 +71,7 @@ function AddBirthday() {
 
   return (
     <section className=''>
+      <Header/>
     <div className='mt-40'>
     <h1 className='text-3xl text-center font-bold p-6'>Add Birthdate</h1>
     <div className='flex flex-col lg:w-1/4 md:w-2/4 w-3/4 mx-auto item-center justify-center mt-4'>
